@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/context/AuthContext";
 import { AppointmentProvider } from "@/context/AppointmentContext";
 import { PatientProvider } from "@/context/PatientContext";
+import { HealthProvider } from "@/context/HealthContext";
 
 import Index from "./pages/Index";
 import DoctorsPage from "./pages/DoctorsPage";
@@ -20,6 +21,8 @@ import PatientDashboard from "./pages/PatientDashboard";
 import PatientProfile from "./pages/PatientProfile";
 import MedicalRecords from "./pages/MedicalRecords";
 import HealthTips from "./pages/HealthTips";
+import HealthTracker from "./pages/HealthTracker";
+import Prescriptions from "./pages/Prescriptions";
 import DoctorDashboard from "./pages/DoctorDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
@@ -31,30 +34,34 @@ const App = () => (
     <AuthProvider>
       <AppointmentProvider>
         <PatientProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/doctors" element={<DoctorsPage />} />
-                <Route path="/doctors/:id" element={<DoctorDetails />} />
-                <Route path="/book/:id" element={<BookAppointment />} />
-                <Route path="/my-appointments" element={<MyAppointments />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<Signup />} />
-                <Route path="/forgot-password" element={<ForgotPassword />} />
-                <Route path="/patient-dashboard" element={<PatientDashboard />} />
-                <Route path="/profile" element={<PatientProfile />} />
-                <Route path="/medical-records" element={<MedicalRecords />} />
-                <Route path="/health-tips" element={<HealthTips />} />
-                <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
-                <Route path="/admin" element={<AdminDashboard />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </BrowserRouter>
-          </TooltipProvider>
+          <HealthProvider>
+            <TooltipProvider>
+              <Toaster />
+              <Sonner />
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/doctors" element={<DoctorsPage />} />
+                  <Route path="/doctors/:id" element={<DoctorDetails />} />
+                  <Route path="/book/:id" element={<BookAppointment />} />
+                  <Route path="/my-appointments" element={<MyAppointments />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/signup" element={<Signup />} />
+                  <Route path="/forgot-password" element={<ForgotPassword />} />
+                  <Route path="/patient-dashboard" element={<PatientDashboard />} />
+                  <Route path="/profile" element={<PatientProfile />} />
+                  <Route path="/medical-records" element={<MedicalRecords />} />
+                  <Route path="/health-tips" element={<HealthTips />} />
+                  <Route path="/health-tracker" element={<HealthTracker />} />
+                  <Route path="/prescriptions" element={<Prescriptions />} />
+                  <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
+                  <Route path="/admin" element={<AdminDashboard />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </BrowserRouter>
+            </TooltipProvider>
+          </HealthProvider>
         </PatientProvider>
       </AppointmentProvider>
     </AuthProvider>
