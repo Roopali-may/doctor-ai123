@@ -4,12 +4,10 @@ import { Input } from "@/components/ui/input";
 import DoctorCard from "@/components/DoctorCard";
 import MainLayout from "@/layouts/MainLayout";
 import { doctors } from "@/data/doctors";
+import { services } from "@/data/services";
 import heroBanner from "@/assets/hero-banner.jpg";
 import {
   Search,
-  Stethoscope,
-  HeartPulse,
-  Video,
   ShieldCheck,
   Clock,
   Star,
@@ -21,6 +19,11 @@ import {
   Activity,
   CheckCircle,
   Lightbulb,
+  Video,
+  Target,
+  HeartHandshake,
+  Sparkles,
+  Globe,
 } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -38,12 +41,7 @@ const Index = () => {
   const [search, setSearch] = useState("");
   const topDoctors = doctors.filter((d) => d.available).slice(0, 4);
 
-  const services = [
-    { icon: Stethoscope, title: "Consultation", desc: "Expert doctors available for in-person and virtual consultations." },
-    { icon: HeartPulse, title: "Emergency Care", desc: "24/7 emergency services with rapid response medical teams." },
-    { icon: Video, title: "Online Care", desc: "Connect with doctors from home through secure video calls." },
-    { icon: ShieldCheck, title: "Health Checkup", desc: "Comprehensive health screening and preventive care packages." },
-  ];
+  const homeServices = services.slice(0, 8);
 
   const stats = [
     { value: "500+", label: "Expert Doctors", icon: Users },
