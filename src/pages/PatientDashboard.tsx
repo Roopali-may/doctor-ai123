@@ -5,7 +5,7 @@ import { useAuth } from "@/context/AuthContext";
 import { usePatient } from "@/context/PatientContext";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Calendar, Clock, User, ArrowRight, FileText, Heart, CreditCard } from "lucide-react";
+import { Calendar, Clock, User, ArrowRight, FileText, Heart, CreditCard, Activity, Pill } from "lucide-react";
 
 const PatientDashboard = () => {
   const { appointments } = useAppointments();
@@ -57,19 +57,19 @@ const PatientDashboard = () => {
               <User className="h-4 w-4" /> Find a Doctor
             </Button>
           </Link>
-          <Link to="/my-appointments">
+          <Link to="/health-tracker">
             <Button className="w-full justify-start gap-2" variant="outline">
-              <Calendar className="h-4 w-4" /> View Appointments
+              <Activity className="h-4 w-4" /> Health Tracker
+            </Button>
+          </Link>
+          <Link to="/prescriptions">
+            <Button className="w-full justify-start gap-2" variant="outline">
+              <Pill className="h-4 w-4" /> Prescriptions
             </Button>
           </Link>
           <Link to="/medical-records">
             <Button className="w-full justify-start gap-2" variant="outline">
               <FileText className="h-4 w-4" /> Medical Records
-            </Button>
-          </Link>
-          <Link to="/profile">
-            <Button className="w-full justify-start gap-2" variant="outline">
-              <User className="h-4 w-4" /> Edit Profile
             </Button>
           </Link>
         </div>

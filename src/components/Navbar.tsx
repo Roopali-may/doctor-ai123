@@ -11,8 +11,10 @@ import {
   Calendar,
   LayoutDashboard,
   FileText,
-  Lightbulb,
+  Activity,
+  Pill,
 } from "lucide-react";
+import ThemeToggle from "@/components/ThemeToggle";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -69,6 +71,7 @@ const Navbar = () => {
         </div>
 
         <div className="hidden items-center gap-3 md:flex">
+          <ThemeToggle />
           {isAuthenticated ? (
             <>
               <Link to="/my-appointments">
@@ -97,6 +100,18 @@ const Navbar = () => {
                         <Link to="/profile" className="flex items-center gap-2">
                           <User className="h-4 w-4" />
                           My Profile
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link to="/health-tracker" className="flex items-center gap-2">
+                          <Activity className="h-4 w-4" />
+                          Health Tracker
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link to="/prescriptions" className="flex items-center gap-2">
+                          <Pill className="h-4 w-4" />
+                          Prescriptions
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
