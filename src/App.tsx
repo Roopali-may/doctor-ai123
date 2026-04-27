@@ -21,6 +21,9 @@ import PatientDashboard from "./pages/PatientDashboard";
 import PatientProfile from "./pages/PatientProfile";
 import MedicalRecords from "./pages/MedicalRecords";
 import HealthTips from "./pages/HealthTips";
+import ArticleDetail from "./pages/ArticleDetail";
+import ServicesPage from "./pages/ServicesPage";
+import ServiceDetail from "./pages/ServiceDetail";
 import HealthTracker from "./pages/HealthTracker";
 import Prescriptions from "./pages/Prescriptions";
 import DoctorDashboard from "./pages/DoctorDashboard";
@@ -53,6 +56,9 @@ const App = () => (
                   <Route path="/profile" element={<PatientProfile />} />
                   <Route path="/medical-records" element={<MedicalRecords />} />
                   <Route path="/health-tips" element={<HealthTips />} />
+                  <Route path="/health-tips/:slug" element={<ArticleDetail />} />
+                  <Route path="/services" element={<ServicesPage />} />
+                  <Route path="/services/:slug" element={<ServiceDetail />} />
                   <Route path="/health-tracker" element={<HealthTracker />} />
                   <Route path="/prescriptions" element={<Prescriptions />} />
                   <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
