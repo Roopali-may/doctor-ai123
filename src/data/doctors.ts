@@ -6,6 +6,10 @@ import doctor5 from "@/assets/doctor-5.jpg";
 import doctor6 from "@/assets/doctor-6.jpg";
 import doctor7 from "@/assets/doctor-7.jpg";
 import doctor8 from "@/assets/doctor-8.jpg";
+import doctor9 from "@/assets/doctor-9.jpg";
+import doctor10 from "@/assets/doctor-10.jpg";
+import doctor11 from "@/assets/doctor-11.jpg";
+import doctor12 from "@/assets/doctor-12.jpg";
 
 export interface Doctor {
   id: string;
@@ -135,6 +139,62 @@ export const doctors: Doctor[] = [
     fee: 160,
     slots: ["10:00 AM", "11:00 AM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM"],
   },
+  {
+    id: "9",
+    name: "Dr. Lucas Meyer",
+    specialization: "Oncologist",
+    experience: 17,
+    rating: 4.9,
+    reviews: 201,
+    image: doctor9,
+    about: "Dr. Meyer specializes in medical oncology with a focus on personalized cancer treatment plans and immunotherapy.",
+    education: "MD from Charité Berlin, Fellowship at MSKCC",
+    available: true,
+    fee: 220,
+    slots: ["09:00 AM", "10:00 AM", "11:30 AM", "02:00 PM", "03:30 PM"],
+  },
+  {
+    id: "10",
+    name: "Dr. Priya Nair",
+    specialization: "Ophthalmologist",
+    experience: 9,
+    rating: 4.8,
+    reviews: 158,
+    image: doctor10,
+    about: "Dr. Nair offers comprehensive eye care including LASIK, cataract surgery, and pediatric ophthalmology.",
+    education: "MD from AIIMS, Fellowship at Moorfields London",
+    available: true,
+    fee: 130,
+    slots: ["09:30 AM", "11:00 AM", "12:30 PM", "02:30 PM", "04:00 PM"],
+  },
+  {
+    id: "11",
+    name: "Dr. Marcus Bell",
+    specialization: "Dentist",
+    experience: 13,
+    rating: 4.7,
+    reviews: 287,
+    image: doctor11,
+    about: "Dr. Bell provides cosmetic dentistry, implants, and family dental care with a gentle approach.",
+    education: "DDS from NYU College of Dentistry",
+    available: true,
+    fee: 90,
+    slots: ["08:30 AM", "09:30 AM", "10:30 AM", "01:00 PM", "02:00 PM", "03:00 PM"],
+  },
+  {
+    id: "12",
+    name: "Dr. Elena Rossi",
+    specialization: "Endocrinologist",
+    experience: 16,
+    rating: 4.9,
+    reviews: 173,
+    image: doctor12,
+    about: "Dr. Rossi specializes in diabetes, thyroid disorders, and hormonal imbalances with a holistic care approach.",
+    education: "MD from University of Milan, Fellowship at Cleveland Clinic",
+    available: true,
+    fee: 170,
+    slots: ["09:00 AM", "10:30 AM", "12:00 PM", "02:00 PM", "03:30 PM"],
+  },
 ];
 
 export const specializations = [
@@ -147,4 +207,8 @@ export const specializations = [
   "Gynecologist",
   "General Physician",
   "Psychiatrist",
+  "Oncologist",
+  "Ophthalmologist",
+  "Dentist",
+  "Endocrinologist",
 ];
