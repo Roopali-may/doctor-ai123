@@ -116,16 +116,78 @@ const Index = () => {
       {/* Services */}
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <h2 className="text-center font-heading text-3xl font-bold">Our Services</h2>
-          <p className="mx-auto mt-2 max-w-lg text-center text-muted-foreground">Comprehensive healthcare solutions designed around your needs.</p>
+          <div className="flex items-end justify-between flex-wrap gap-4">
+            <div>
+              <h2 className="font-heading text-3xl font-bold">Our Services</h2>
+              <p className="mt-2 max-w-lg text-muted-foreground">Comprehensive healthcare solutions designed around your needs.</p>
+            </div>
+            <Link to="/services"><Button variant="outline">All Services <ArrowRight className="ml-2 h-4 w-4" /></Button></Link>
+          </div>
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {services.map((s, i) => (
-              <motion.div key={s.title} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i} className="rounded-xl border bg-card p-6 shadow-card transition-all hover:shadow-card-hover">
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent">
-                  <s.icon className="h-6 w-6 text-primary" />
+            {homeServices.map((s, i) => {
+              const Icon = s.icon;
+              return (
+                <motion.div
+                  key={s.slug}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={fadeUp}
+                  custom={i}
+                  whileHover={{ y: -6 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <Link
+                    to={`/services/${s.slug}`}
+                    className={`group block h-full rounded-xl border bg-gradient-to-br ${s.color} p-6 shadow-card transition-all hover:shadow-card-hover`}
+                  >
+                    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-card">
+                      <Icon className="h-6 w-6 text-primary" />
+                    </div>
+                    <h3 className="mt-4 font-heading text-lg font-semibold">{s.title}</h3>
+                    <p className="mt-2 text-sm text-muted-foreground">{s.desc}</p>
+                    <span className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                      Learn more <ArrowRight className="h-3 w-3" />
+                    </span>
+                  </Link>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Our Objectives */}
+      <section className="bg-gradient-to-br from-primary/5 via-accent/30 to-success/5 py-16">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <Badge className="bg-primary/10 text-primary"><Target className="mr-1 h-3 w-3" /> Our Mission</Badge>
+            <h2 className="mt-3 font-heading text-3xl font-bold">Our Objectives</h2>
+            <p className="mx-auto mt-2 max-w-xl text-muted-foreground">Driving better health outcomes through technology, accessibility and care.</p>
+          </div>
+          <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {[
+              { icon: HeartHandshake, title: "Accessible Care", desc: "Bring quality healthcare to every patient regardless of location or background." },
+              { icon: Sparkles, title: "Modern Experience", desc: "Deliver a beautiful, intuitive interface that simplifies medical journeys." },
+              { icon: ShieldCheck, title: "Trust & Privacy", desc: "Protect patient data with bank-grade encryption and HIPAA-aligned practices." },
+              { icon: Activity, title: "Preventive Wellness", desc: "Empower patients with health tracking and early-detection screenings." },
+              { icon: Globe, title: "Global Network", desc: "Connect patients with verified specialists across borders and time zones." },
+              { icon: Lightbulb, title: "Continuous Innovation", desc: "Improve outcomes with AI suggestions, telemedicine, and smart automation." },
+            ].map((o, i) => (
+              <motion.div
+                key={o.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08, duration: 0.5 }}
+                whileHover={{ scale: 1.03 }}
+                className="group rounded-2xl border bg-card p-6 shadow-card transition-all hover:shadow-card-hover"
+              >
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                  <o.icon className="h-6 w-6" />
                 </div>
-                <h3 className="mt-4 font-heading text-lg font-semibold">{s.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{s.desc}</p>
+                <h3 className="mt-4 font-heading text-lg font-semibold">{o.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{o.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -241,9 +303,8 @@ const Index = () => {
         <div className="container mx-auto px-4 text-center">
           <h2 className="font-heading text-3xl font-bold text-primary-foreground">Ready to Book Your Appointment?</h2>
           <p className="mx-auto mt-3 max-w-md text-primary-foreground/80">Join thousands of patients who trust MediCare for their healthcare needs.</p>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <div className="mt-6 flex justify-center">
             <Link to="/doctors"><Button size="lg" variant="secondary">Book Now <ArrowRight className="ml-2 h-4 w-4" /></Button></Link>
-            <Link to="/health-tips"><Button size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">Health Tips</Button></Link>
           </div>
         </div>
       </section>
