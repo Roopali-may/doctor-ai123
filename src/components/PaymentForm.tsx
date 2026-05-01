@@ -13,7 +13,7 @@ interface PaymentFormProps {
 }
 
 const PaymentForm = ({ amount, doctorName, onPaymentComplete, onBack }: PaymentFormProps) => {
-  const [method, setMethod] = useState<"card" | "upi" | "wallet">("card");
+  const [method, setMethod] = useState<"card" | "upi" | "wallet" | "netbanking">("card");
   const [cardNumber, setCardNumber] = useState("");
   const [expiry, setExpiry] = useState("");
   const [cvv, setCvv] = useState("");
