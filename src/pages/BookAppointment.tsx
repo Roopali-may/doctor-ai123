@@ -74,7 +74,7 @@ const BookAppointment = () => {
           <p className="mt-2 text-muted-foreground">
             Your appointment with {doctor.name} on {selectedDate} at {selectedSlot} has been confirmed.
           </p>
-          <p className="mt-1 text-sm text-success">Payment of ${(doctor.fee + 2 + doctor.fee * 0.05).toFixed(2)} received</p>
+          <p className="mt-1 text-sm text-success">Payment of ₹{(doctor.fee + 50 + doctor.fee * 0.18).toFixed(2)} received</p>
           <div className="mt-6 flex gap-3">
             <Link to="/my-appointments"><Button>View Appointments</Button></Link>
             <Link to="/"><Button variant="outline">Go Home</Button></Link>
@@ -122,7 +122,7 @@ const BookAppointment = () => {
                 <span className="flex items-center gap-1"><Star className="h-3.5 w-3.5 fill-warning text-warning" />{doctor.rating}</span>
                 <span className="flex items-center gap-1"><Clock className="h-3.5 w-3.5" />{doctor.experience} yrs</span>
               </div>
-              <p className="mt-3 font-heading text-lg font-bold">${doctor.fee} <span className="text-sm font-normal text-muted-foreground">per visit</span></p>
+              <p className="mt-3 font-heading text-lg font-bold">₹{doctor.fee} <span className="text-sm font-normal text-muted-foreground">per visit</span></p>
               {selectedDate && selectedSlot && (
                 <div className="mt-4 rounded-lg bg-accent/50 p-3 text-sm">
                   <p className="font-medium">Selected Slot</p>
@@ -166,7 +166,7 @@ const BookAppointment = () => {
                 </div>
 
                 <Button type="submit" size="lg" className="w-full">
-                  Proceed to Payment — ${doctor.fee}
+                  Proceed to Payment — ₹{doctor.fee}
                 </Button>
               </form>
             )}
