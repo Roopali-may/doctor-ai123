@@ -60,11 +60,11 @@ const PaymentForm = ({ amount, doctorName, onPaymentComplete, onBack }: PaymentF
       <div className="rounded-xl border bg-accent/30 p-5">
         <h3 className="font-heading font-semibold">Payment Summary</h3>
         <div className="mt-3 space-y-2 text-sm">
-          <div className="flex justify-between"><span className="text-muted-foreground">Consultation Fee</span><span>${amount}</span></div>
-          <div className="flex justify-between"><span className="text-muted-foreground">Platform Fee</span><span>$2.00</span></div>
-          <div className="flex justify-between"><span className="text-muted-foreground">Tax</span><span>${(amount * 0.05).toFixed(2)}</span></div>
+          <div className="flex justify-between"><span className="text-muted-foreground">Consultation Fee</span><span>₹{amount}</span></div>
+          <div className="flex justify-between"><span className="text-muted-foreground">Platform Fee</span><span>₹50</span></div>
+          <div className="flex justify-between"><span className="text-muted-foreground">GST (18%)</span><span>₹{(amount * 0.18).toFixed(2)}</span></div>
           <div className="border-t pt-2 mt-2 flex justify-between font-heading font-bold text-base">
-            <span>Total</span><span>${(amount + 2 + amount * 0.05).toFixed(2)}</span>
+            <span>Total</span><span>₹{(amount + 50 + amount * 0.18).toFixed(2)}</span>
           </div>
         </div>
       </div>
@@ -72,7 +72,7 @@ const PaymentForm = ({ amount, doctorName, onPaymentComplete, onBack }: PaymentF
       {/* Payment Method Selector */}
       <div>
         <h3 className="font-heading font-semibold">Select Payment Method</h3>
-        <div className="mt-3 grid gap-2 sm:grid-cols-3">
+        <div className="mt-3 grid gap-2 sm:grid-cols-4">
           {paymentMethods.map((pm) => (
             <button
               key={pm.id}
