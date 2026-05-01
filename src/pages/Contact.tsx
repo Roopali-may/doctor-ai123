@@ -87,9 +87,13 @@ const Contact = () => {
               </div>
             </div>
 
-            <div className="rounded-xl border bg-muted/30 p-6 shadow-card">
-              <div className="flex h-48 items-center justify-center rounded-lg bg-muted text-muted-foreground">
-                <MapPin className="mr-2 h-5 w-5" /> Map Placeholder
+            <div className="rounded-xl border bg-card p-6 shadow-card">
+              <h2 className="font-heading text-xl font-semibold">Working Hours</h2>
+              <div className="mt-4 space-y-3 text-sm">
+                <div className="flex justify-between"><span className="text-muted-foreground">Monday - Friday</span><span className="font-medium">8:00 AM - 8:00 PM</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground">Saturday</span><span className="font-medium">9:00 AM - 5:00 PM</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground">Sunday</span><span className="font-medium">10:00 AM - 2:00 PM</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground">Emergency</span><span className="font-medium text-destructive">24/7 Available</span></div>
               </div>
             </div>
           </div>

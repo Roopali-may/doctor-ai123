@@ -3,7 +3,7 @@ import MainLayout from "@/layouts/MainLayout";
 import { doctors } from "@/data/doctors";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Star, Clock, GraduationCap, DollarSign, ArrowLeft } from "lucide-react";
+import { Star, Clock, GraduationCap, IndianRupee, ArrowLeft } from "lucide-react";
 
 const DoctorDetails = () => {
   const { id } = useParams();
@@ -38,7 +38,7 @@ const DoctorDetails = () => {
                   <div className="flex items-center gap-2"><Clock className="h-4 w-4 text-primary" />{doctor.experience} years experience</div>
                   <div className="flex items-center gap-2"><Star className="h-4 w-4 fill-warning text-warning" />{doctor.rating} ({doctor.reviews} reviews)</div>
                   <div className="flex items-center gap-2"><GraduationCap className="h-4 w-4 text-primary" />{doctor.education}</div>
-                  <div className="flex items-center gap-2"><DollarSign className="h-4 w-4 text-primary" />${doctor.fee} per consultation</div>
+                  <div className="flex items-center gap-2"><IndianRupee className="h-4 w-4 text-primary" />₹{doctor.fee} per consultation</div>
                 </div>
                 <Badge className={`mt-4 ${doctor.available ? "bg-success text-success-foreground" : "bg-muted text-muted-foreground"}`}>
                   {doctor.available ? "Available" : "Unavailable"}
