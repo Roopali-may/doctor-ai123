@@ -51,6 +51,7 @@ const PaymentForm = ({ amount, doctorName, onPaymentComplete, onBack }: PaymentF
   const paymentMethods = [
     { id: "card" as const, label: "Credit/Debit Card", icon: CreditCard },
     { id: "upi" as const, label: "UPI Payment", icon: Wallet },
+    { id: "netbanking" as const, label: "Net Banking", icon: Lock },
     { id: "wallet" as const, label: "Digital Wallet", icon: Wallet },
   ];
 
