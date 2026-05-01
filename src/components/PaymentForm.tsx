@@ -131,11 +131,26 @@ const PaymentForm = ({ amount, doctorName, onPaymentComplete, onBack }: PaymentF
         </div>
       )}
 
+      {/* Net Banking */}
+      {method === "netbanking" && (
+        <div className="rounded-xl border bg-card p-5 shadow-card">
+          <Label>Select Bank</Label>
+          <div className="mt-3 space-y-2">
+            {["State Bank of India (SBI)", "HDFC Bank", "ICICI Bank", "Axis Bank", "Punjab National Bank", "Bank of Baroda"].map((bank) => (
+              <button key={bank} className="flex w-full items-center gap-3 rounded-lg border p-3 text-sm font-medium transition-all hover:border-primary/50 hover:bg-primary/5">
+                <Lock className="h-4 w-4 text-primary" />
+                {bank}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Wallet */}
       {method === "wallet" && (
         <div className="rounded-xl border bg-card p-5 shadow-card">
           <div className="space-y-2">
-            {["Google Pay", "Apple Pay", "PayPal"].map((w) => (
+            {["Google Pay", "PhonePe", "Paytm", "Amazon Pay"].map((w) => (
               <button key={w} className="flex w-full items-center gap-3 rounded-lg border p-3 text-sm font-medium transition-all hover:border-primary/50 hover:bg-primary/5">
                 <Wallet className="h-4 w-4 text-primary" />
                 {w}
@@ -161,7 +176,7 @@ const PaymentForm = ({ amount, doctorName, onPaymentComplete, onBack }: PaymentF
               Processing...
             </span>
           ) : (
-            <>Pay ${(amount + 2 + amount * 0.05).toFixed(2)}</>
+            <>Pay ₹{(amount + 50 + amount * 0.18).toFixed(2)}</>
           )}
         </Button>
       </div>
