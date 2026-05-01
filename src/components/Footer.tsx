@@ -27,16 +27,16 @@ const Footer = () => (
         <div>
           <h4 className="mb-4 font-heading font-semibold">Services</h4>
           <div className="flex flex-col gap-2 text-sm text-muted-foreground">
-            <span>Consultation</span>
+            <Link to="/services" className="hover:text-primary">Consultation</Link>
+            <Link to="/online-consultation" className="hover:text-primary">Online Treatment</Link>
             <span>Emergency Care</span>
-            <span>Online Appointments</span>
             <span>Lab Tests</span>
           </div>
         </div>
         <div>
           <h4 className="mb-4 font-heading font-semibold">Contact</h4>
           <div className="flex flex-col gap-3 text-sm text-muted-foreground">
-            <span className="flex items-center gap-2"><Phone className="h-4 w-4 text-primary" /> +1 (555) 123-4567</span>
+            <span className="flex items-center gap-2"><Phone className="h-4 w-4 text-primary" /> +91 98765 43210</span>
             <span className="flex items-center gap-2"><Mail className="h-4 w-4 text-primary" /> contact@medicare.com</span>
             <span className="flex items-center gap-2"><MapPin className="h-4 w-4 text-primary" /> 123 Health Ave, Medical City</span>
           </div>

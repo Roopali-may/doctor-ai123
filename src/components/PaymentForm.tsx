@@ -13,7 +13,7 @@ interface PaymentFormProps {
 }
 
 const PaymentForm = ({ amount, doctorName, onPaymentComplete, onBack }: PaymentFormProps) => {
-  const [method, setMethod] = useState<"card" | "upi" | "wallet">("card");
+  const [method, setMethod] = useState<"card" | "upi" | "wallet" | "netbanking">("card");
   const [cardNumber, setCardNumber] = useState("");
   const [expiry, setExpiry] = useState("");
   const [cvv, setCvv] = useState("");
@@ -51,6 +51,7 @@ const PaymentForm = ({ amount, doctorName, onPaymentComplete, onBack }: PaymentF
   const paymentMethods = [
     { id: "card" as const, label: "Credit/Debit Card", icon: CreditCard },
     { id: "upi" as const, label: "UPI Payment", icon: Wallet },
+    { id: "netbanking" as const, label: "Net Banking", icon: Lock },
     { id: "wallet" as const, label: "Digital Wallet", icon: Wallet },
   ];
 
@@ -60,11 +61,11 @@ const PaymentForm = ({ amount, doctorName, onPaymentComplete, onBack }: PaymentF
       <div className="rounded-xl border bg-accent/30 p-5">
         <h3 className="font-heading font-semibold">Payment Summary</h3>
         <div className="mt-3 space-y-2 text-sm">
-          <div className="flex justify-between"><span className="text-muted-foreground">Consultation Fee</span><span>${amount}</span></div>
-          <div className="flex justify-between"><span className="text-muted-foreground">Platform Fee</span><span>$2.00</span></div>
-          <div className="flex justify-between"><span className="text-muted-foreground">Tax</span><span>${(amount * 0.05).toFixed(2)}</span></div>
+          <div className="flex justify-between"><span className="text-muted-foreground">Consultation Fee</span><span>₹{amount}</span></div>
+          <div className="flex justify-between"><span className="text-muted-foreground">Platform Fee</span><span>₹50</span></div>
+          <div className="flex justify-between"><span className="text-muted-foreground">GST (18%)</span><span>₹{(amount * 0.18).toFixed(2)}</span></div>
           <div className="border-t pt-2 mt-2 flex justify-between font-heading font-bold text-base">
-            <span>Total</span><span>${(amount + 2 + amount * 0.05).toFixed(2)}</span>
+            <span>Total</span><span>₹{(amount + 50 + amount * 0.18).toFixed(2)}</span>
           </div>
         </div>
       </div>
@@ -72,7 +73,7 @@ const PaymentForm = ({ amount, doctorName, onPaymentComplete, onBack }: PaymentF
       {/* Payment Method Selector */}
       <div>
         <h3 className="font-heading font-semibold">Select Payment Method</h3>
-        <div className="mt-3 grid gap-2 sm:grid-cols-3">
+        <div className="mt-3 grid gap-2 sm:grid-cols-4">
           {paymentMethods.map((pm) => (
             <button
               key={pm.id}
@@ -130,11 +131,26 @@ const PaymentForm = ({ amount, doctorName, onPaymentComplete, onBack }: PaymentF
         </div>
       )}
 
+      {/* Net Banking */}
+      {method === "netbanking" && (
+        <div className="rounded-xl border bg-card p-5 shadow-card">
+          <Label>Select Bank</Label>
+          <div className="mt-3 space-y-2">
+            {["State Bank of India (SBI)", "HDFC Bank", "ICICI Bank", "Axis Bank", "Punjab National Bank", "Bank of Baroda"].map((bank) => (
+              <button key={bank} className="flex w-full items-center gap-3 rounded-lg border p-3 text-sm font-medium transition-all hover:border-primary/50 hover:bg-primary/5">
+                <Lock className="h-4 w-4 text-primary" />
+                {bank}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Wallet */}
       {method === "wallet" && (
         <div className="rounded-xl border bg-card p-5 shadow-card">
           <div className="space-y-2">
-            {["Google Pay", "Apple Pay", "PayPal"].map((w) => (
+            {["Google Pay", "PhonePe", "Paytm", "Amazon Pay"].map((w) => (
               <button key={w} className="flex w-full items-center gap-3 rounded-lg border p-3 text-sm font-medium transition-all hover:border-primary/50 hover:bg-primary/5">
                 <Wallet className="h-4 w-4 text-primary" />
                 {w}
@@ -160,7 +176,7 @@ const PaymentForm = ({ amount, doctorName, onPaymentComplete, onBack }: PaymentF
               Processing...
             </span>
           ) : (
-            <>Pay ${(amount + 2 + amount * 0.05).toFixed(2)}</>
+            <>Pay ₹{(amount + 50 + amount * 0.18).toFixed(2)}</>
           )}
         </Button>
       </div>

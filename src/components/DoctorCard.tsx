@@ -39,7 +39,7 @@ const DoctorCard = ({ doctor }: { doctor: Doctor }) => (
         </span>
       </div>
       <div className="mt-4 flex items-center justify-between">
-        <span className="font-heading text-lg font-bold text-foreground">${doctor.fee}</span>
+        <span className="font-heading text-lg font-bold text-foreground">₹{doctor.fee}</span>
         <Link to={`/doctors/${doctor.id}`}>
           <Button size="sm">View Profile</Button>
         </Link>
