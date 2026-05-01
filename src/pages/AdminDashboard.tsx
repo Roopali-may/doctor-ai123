@@ -13,7 +13,7 @@ const AdminDashboard = () => {
     { label: "Total Doctors", value: doctors.length, icon: Stethoscope, color: "bg-primary/10 text-primary" },
     { label: "Total Appointments", value: appointments.length, icon: Calendar, color: "bg-success/10 text-success" },
     { label: "Active Patients", value: 156, icon: Users, color: "bg-warning/10 text-warning" },
-    { label: "Revenue", value: "$12,450", icon: TrendingUp, color: "bg-accent text-accent-foreground" },
+    { label: "Revenue", value: "₹9,85,000", icon: TrendingUp, color: "bg-accent text-accent-foreground" },
   ];
 
   const chartData = [
