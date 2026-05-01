@@ -38,7 +38,7 @@ export const doctors: Doctor[] = [
     about: "Dr. Wilson is a board-certified cardiologist with over 15 years of experience in interventional cardiology. He specializes in heart disease prevention, diagnosis, and treatment.",
     education: "MD from Harvard Medical School",
     available: true,
-    fee: 150,
+    fee: 1200,
     slots: ["09:00 AM", "10:00 AM", "11:00 AM", "02:00 PM", "03:00 PM", "04:00 PM"],
   },
   {
@@ -52,7 +52,7 @@ export const doctors: Doctor[] = [
     about: "Dr. Chen specializes in medical and cosmetic dermatology. She treats conditions ranging from acne and eczema to skin cancer screening.",
     education: "MD from Stanford University",
     available: true,
-    fee: 120,
+    fee: 900,
     slots: ["09:30 AM", "10:30 AM", "11:30 AM", "01:00 PM", "02:30 PM"],
   },
   {
@@ -66,7 +66,7 @@ export const doctors: Doctor[] = [
     about: "Dr. Patel is an expert orthopedic surgeon specializing in sports injuries, joint replacements, and minimally invasive surgical techniques.",
     education: "MD from AIIMS, Fellowship at Mayo Clinic",
     available: true,
-    fee: 200,
+    fee: 1500,
     slots: ["08:00 AM", "09:00 AM", "10:00 AM", "01:00 PM", "02:00 PM"],
   },
   {
@@ -80,7 +80,7 @@ export const doctors: Doctor[] = [
     about: "Dr. Johnson is a compassionate pediatrician dedicated to providing comprehensive care for children from birth through adolescence.",
     education: "MD from Johns Hopkins University",
     available: true,
-    fee: 100,
+    fee: 800,
     slots: ["09:00 AM", "10:00 AM", "11:00 AM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM"],
   },
   {
@@ -94,7 +94,7 @@ export const doctors: Doctor[] = [
     about: "Dr. Zhang is a leading neurologist specializing in headaches, epilepsy, stroke, and neurodegenerative disorders.",
     education: "MD from Peking University, Fellowship at UCLA",
     available: false,
-    fee: 180,
+    fee: 1400,
     slots: ["10:00 AM", "11:00 AM", "01:00 PM", "03:00 PM"],
   },
   {
@@ -108,7 +108,7 @@ export const doctors: Doctor[] = [
     about: "Dr. Roberts provides comprehensive women's health services including prenatal care, family planning, and minimally invasive surgery.",
     education: "MD from Columbia University",
     available: true,
-    fee: 140,
+    fee: 1100,
     slots: ["09:00 AM", "10:30 AM", "12:00 PM", "02:00 PM", "03:30 PM"],
   },
   {
@@ -122,7 +122,7 @@ export const doctors: Doctor[] = [
     about: "Dr. Torres is a seasoned general physician providing primary care, preventive medicine, and chronic disease management.",
     education: "MD from University of Pennsylvania",
     available: true,
-    fee: 80,
+    fee: 600,
     slots: ["08:00 AM", "09:00 AM", "10:00 AM", "11:00 AM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM"],
   },
   {
@@ -136,7 +136,7 @@ export const doctors: Doctor[] = [
     about: "Dr. Al-Hassan specializes in mental health, offering therapy and medication management for anxiety, depression, PTSD, and other conditions.",
     education: "MD from University of Toronto",
     available: true,
-    fee: 160,
+    fee: 1300,
     slots: ["10:00 AM", "11:00 AM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM"],
   },
   {
@@ -150,7 +150,7 @@ export const doctors: Doctor[] = [
     about: "Dr. Meyer specializes in medical oncology with a focus on personalized cancer treatment plans and immunotherapy.",
     education: "MD from Charité Berlin, Fellowship at MSKCC",
     available: true,
-    fee: 220,
+    fee: 1800,
     slots: ["09:00 AM", "10:00 AM", "11:30 AM", "02:00 PM", "03:30 PM"],
   },
   {
@@ -164,7 +164,7 @@ export const doctors: Doctor[] = [
     about: "Dr. Nair offers comprehensive eye care including LASIK, cataract surgery, and pediatric ophthalmology.",
     education: "MD from AIIMS, Fellowship at Moorfields London",
     available: true,
-    fee: 130,
+    fee: 1000,
     slots: ["09:30 AM", "11:00 AM", "12:30 PM", "02:30 PM", "04:00 PM"],
   },
   {
@@ -178,7 +178,7 @@ export const doctors: Doctor[] = [
     about: "Dr. Bell provides cosmetic dentistry, implants, and family dental care with a gentle approach.",
     education: "DDS from NYU College of Dentistry",
     available: true,
-    fee: 90,
+    fee: 700,
     slots: ["08:30 AM", "09:30 AM", "10:30 AM", "01:00 PM", "02:00 PM", "03:00 PM"],
   },
   {
@@ -192,7 +192,7 @@ export const doctors: Doctor[] = [
     about: "Dr. Rossi specializes in diabetes, thyroid disorders, and hormonal imbalances with a holistic care approach.",
     education: "MD from University of Milan, Fellowship at Cleveland Clinic",
     available: true,
-    fee: 170,
+    fee: 1400,
     slots: ["09:00 AM", "10:30 AM", "12:00 PM", "02:00 PM", "03:30 PM"],
   },
 ];
