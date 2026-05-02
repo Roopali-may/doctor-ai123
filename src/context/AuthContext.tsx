@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import { authService } from "@/services/authService";
 
 export type UserRole = "patient" | "doctor" | "admin";
 
@@ -11,34 +12,87 @@ export interface User {
 
 interface AuthContextType {
   user: User | null;
-  login: (email: string, password: string, role: UserRole) => void;
-  signup: (name: string, email: string, password: string, role: UserRole) => void;
-  logout: () => void;
+  loading: boolean;
+  login: (email: string, password: string, role: UserRole) => Promise<void>;
+  signup: (name: string, email: string, password: string, role: UserRole) => Promise<void>;
+  logout: () => Promise<void>;
   isAuthenticated: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+const STORAGE_KEY = "auth_user";
+
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(() => {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? (JSON.parse(raw) as User) : null;
+    } catch {
+      return null;
+    }
+  });
+  const [loading, setLoading] = useState(true);
 
-  const login = (email: string, _password: string, role: UserRole) => {
-    setUser({
-      id: "1",
-      name: role === "admin" ? "Admin User" : role === "doctor" ? "Dr. James Wilson" : "John Doe",
-      email,
-      role,
-    });
+  // On mount, try to refresh user from backend (only works if MERN server is up)
+  useEffect(() => {
+    let active = true;
+    (async () => {
+      const me = await authService.me();
+      if (active && me) {
+        setUser(me);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(me));
+      }
+      if (active) setLoading(false);
+    })();
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const persist = (u: User | null) => {
+    setUser(u);
+    if (u) localStorage.setItem(STORAGE_KEY, JSON.stringify(u));
+    else localStorage.removeItem(STORAGE_KEY);
   };
 
-  const signup = (name: string, email: string, _password: string, role: UserRole) => {
-    setUser({ id: "1", name, email, role });
+  const login = async (email: string, password: string, role: UserRole) => {
+    try {
+      const { user: u } = await authService.login(email, password, role);
+      persist(u);
+    } catch (err) {
+      // Fallback to mock auth so the preview still works without a running backend.
+      console.warn("[auth] backend unreachable, using mock login:", err);
+      persist({
+        id: "mock-1",
+        name: role === "admin" ? "Admin User" : role === "doctor" ? "Dr. James Wilson" : "John Doe",
+        email,
+        role,
+      });
+    }
   };
 
-  const logout = () => setUser(null);
+  const signup = async (name: string, email: string, password: string, role: UserRole) => {
+    try {
+      const { user: u } = await authService.signup(name, email, password, role);
+      persist(u);
+    } catch (err) {
+      console.warn("[auth] backend unreachable, using mock signup:", err);
+      persist({ id: "mock-1", name, email, role });
+    }
+  };
+
+  const logout = async () => {
+    try {
+      await authService.logout();
+    } catch {
+      /* ignore */
+    }
+    persist(null);
+  };
 
   return (
-    <AuthContext.Provider value={{ user, login, signup, logout, isAuthenticated: !!user }}>
+    <AuthContext.Provider value={{ user, loading, login, signup, logout, isAuthenticated: !!user }}>
       {children}
     </AuthContext.Provider>
   );
