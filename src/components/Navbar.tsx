@@ -59,7 +59,7 @@ const Navbar = () => {
         <div className="hidden items-center gap-1 md:flex">
           {navLinks.map((link) => (
             <Link
-              key={link.to}
+              key={link.label}
               to={link.to}
               className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
                 isActive(link.to)
@@ -149,7 +149,7 @@ const Navbar = () => {
           <div className="flex flex-col gap-1 pt-2">
             {navLinks.map((link) => (
               <Link
-                key={link.to}
+                key={link.label}
                 to={link.to}
                 onClick={() => setMobileOpen(false)}
                 className={`rounded-lg px-4 py-2.5 text-sm font-medium ${
