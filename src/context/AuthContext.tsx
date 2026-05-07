@@ -34,7 +34,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   });
   const [loading, setLoading] = useState(true);
 
-  // On mount, try to refresh user from backend (only works if MERN server is up)
   useEffect(() => {
     let active = true;
     (async () => {
@@ -57,29 +56,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const login = async (email: string, password: string, role: UserRole) => {
-    try {
-      const { user: u } = await authService.login(email, password, role);
-      persist(u);
-    } catch (err) {
-      // Fallback to mock auth so the preview still works without a running backend.
-      console.warn("[auth] backend unreachable, using mock login:", err);
-      persist({
-        id: "mock-1",
-        name: role === "admin" ? "Admin User" : role === "doctor" ? "Dr. James Wilson" : "John Doe",
-        email,
-        role,
-      });
-    }
+    const { user: u } = await authService.login(email, password, role);
+    persist(u);
   };
 
   const signup = async (name: string, email: string, password: string, role: UserRole) => {
-    try {
-      const { user: u } = await authService.signup(name, email, password, role);
-      persist(u);
-    } catch (err) {
-      console.warn("[auth] backend unreachable, using mock signup:", err);
-      persist({ id: "mock-1", name, email, role });
-    }
+    const { user: u } = await authService.signup(name, email, password, role);
+    persist(u);
   };
 
   const logout = async () => {
