@@ -14,7 +14,7 @@ import {
   Activity,
   Pill,
 } from "lucide-react";
-import ThemeToggle from "@/components/ThemeToggle";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -31,6 +31,7 @@ const Navbar = () => {
   const navLinks = [
     { to: "/", label: "Home" },
     { to: "/doctors", label: "Doctors" },
+    { to: "/doctors", label: "Book Appointment" },
     { to: "/online-consultation", label: "Online Consult" },
     { to: "/health-tips", label: "Health Tips" },
     { to: "/contact", label: "Contact" },
@@ -72,7 +73,6 @@ const Navbar = () => {
         </div>
 
         <div className="hidden items-center gap-3 md:flex">
-          <ThemeToggle />
           {isAuthenticated ? (
             <>
               <Link to="/my-appointments">
