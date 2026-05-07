@@ -14,7 +14,7 @@ import {
   Activity,
   Pill,
 } from "lucide-react";
-import ThemeToggle from "@/components/ThemeToggle";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -31,6 +31,7 @@ const Navbar = () => {
   const navLinks = [
     { to: "/", label: "Home" },
     { to: "/doctors", label: "Doctors" },
+    { to: "/doctors", label: "Book Appointment" },
     { to: "/online-consultation", label: "Online Consult" },
     { to: "/health-tips", label: "Health Tips" },
     { to: "/contact", label: "Contact" },
@@ -58,7 +59,7 @@ const Navbar = () => {
         <div className="hidden items-center gap-1 md:flex">
           {navLinks.map((link) => (
             <Link
-              key={link.to}
+              key={link.label}
               to={link.to}
               className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
                 isActive(link.to)
@@ -72,7 +73,6 @@ const Navbar = () => {
         </div>
 
         <div className="hidden items-center gap-3 md:flex">
-          <ThemeToggle />
           {isAuthenticated ? (
             <>
               <Link to="/my-appointments">
@@ -149,7 +149,7 @@ const Navbar = () => {
           <div className="flex flex-col gap-1 pt-2">
             {navLinks.map((link) => (
               <Link
-                key={link.to}
+                key={link.label}
                 to={link.to}
                 onClick={() => setMobileOpen(false)}
                 className={`rounded-lg px-4 py-2.5 text-sm font-medium ${

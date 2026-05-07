@@ -50,8 +50,8 @@ export const authService = {
   /** GET /auth/me */
   me: async (): Promise<AuthUser | null> => {
     try {
-      const { data } = await api.get<AuthUser>("/auth/me");
-      return data;
+      const { data } = await api.get<{ user: AuthUser }>("/auth/me");
+      return data.user ?? null;
     } catch {
       return null;
     }
