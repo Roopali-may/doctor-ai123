@@ -49,6 +49,9 @@ export const authService = {
 
   /** GET /auth/me */
   me: async (): Promise<AuthUser | null> => {
+    const token = localStorage.getItem("auth_token");
+    if (!token) return null;
+
     try {
       const { data } = await api.get<{ user: AuthUser }>("/auth/me");
       return data.user ?? null;
