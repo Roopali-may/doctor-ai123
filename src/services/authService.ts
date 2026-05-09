@@ -13,12 +13,49 @@ export interface AuthResponse {
   token: string;
 }
 
+type StoredDemoUser = AuthUser & { password: string };
+
+const DEMO_USERS_KEY = "demo_auth_users";
+const AUTH_USER_KEY = "auth_user";
+const demoUsers: StoredDemoUser[] = [
+  { id: "demo-admin", name: "Admin", email: "admin@hms.com", password: "admin123", role: "admin" },
+  { id: "demo-patient", name: "Patient One", email: "patient@hms.com", password: "patient123", role: "patient" },
+  { id: "demo-doctor", name: "Dr. Demo", email: "doctor@hms.com", password: "doctor123", role: "doctor" },
+];
+
+const isNetworkError = (error: unknown) => Boolean((error as { isNetworkError?: boolean })?.isNetworkError);
+
+const readDemoUsers = (): StoredDemoUser[] => {
+  try {
+    const stored = localStorage.getItem(DEMO_USERS_KEY);
+    return stored ? [...demoUsers, ...(JSON.parse(stored) as StoredDemoUser[])] : demoUsers;
+  } catch {
+    return demoUsers;
+  }
+};
+
+const toAuthResponse = (user: StoredDemoUser): AuthResponse => {
+  const { password: _password, ...safeUser } = user;
+  const token = `demo-${safeUser.id}`;
+  localStorage.setItem("auth_token", token);
+  return { user: safeUser, token };
+};
+
 export const authService = {
   /** POST /auth/login */
   login: async (email: string, password: string, role: UserRole): Promise<AuthResponse> => {
-    const { data } = await api.post<AuthResponse>("/auth/login", { email, password, role });
-    if (data.token) localStorage.setItem("auth_token", data.token);
-    return data;
+    try {
+      const { data } = await api.post<AuthResponse>("/auth/login", { email, password, role });
+      if (data.token) localStorage.setItem("auth_token", data.token);
+      return data;
+    } catch (error) {
+      if (!isNetworkError(error)) throw error;
+      const user = readDemoUsers().find(
+        (u) => u.email.toLowerCase() === email.toLowerCase() && u.password === password && u.role === role
+      );
+      if (!user) throw new Error("Backend is not reachable. Use demo credentials or start the backend on port 8080.");
+      return toAuthResponse(user);
+    }
   },
 
   /** POST /auth/register */
@@ -28,14 +65,25 @@ export const authService = {
     password: string,
     role: UserRole
   ): Promise<AuthResponse> => {
-    const { data } = await api.post<AuthResponse>("/auth/register", {
-      name,
-      email,
-      password,
-      role,
-    });
-    if (data.token) localStorage.setItem("auth_token", data.token);
-    return data;
+    try {
+      const { data } = await api.post<AuthResponse>("/auth/register", {
+        name,
+        email,
+        password,
+        role,
+      });
+      if (data.token) localStorage.setItem("auth_token", data.token);
+      return data;
+    } catch (error) {
+      if (!isNetworkError(error)) throw error;
+      const users = readDemoUsers();
+      if (users.some((u) => u.email.toLowerCase() === email.toLowerCase())) {
+        throw new Error("Email already registered");
+      }
+      const user: StoredDemoUser = { id: `demo-${Date.now()}`, name, email, password, role };
+      localStorage.setItem(DEMO_USERS_KEY, JSON.stringify([...users.filter((u) => !demoUsers.includes(u)), user]));
+      return toAuthResponse(user);
+    }
   },
 
   /** POST /auth/logout */
@@ -51,6 +99,15 @@ export const authService = {
   me: async (): Promise<AuthUser | null> => {
     const token = localStorage.getItem("auth_token");
     if (!token) return null;
+
+    if (token.startsWith("demo-")) {
+      try {
+        const stored = localStorage.getItem(AUTH_USER_KEY);
+        return stored ? (JSON.parse(stored) as AuthUser) : null;
+      } catch {
+        return null;
+      }
+    }
 
     try {
       const { data } = await api.get<{ user: AuthUser }>("/auth/me");
