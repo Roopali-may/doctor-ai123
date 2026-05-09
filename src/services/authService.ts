@@ -41,6 +41,14 @@ const toAuthResponse = (user: StoredDemoUser): AuthResponse => {
   return { user: safeUser, token };
 };
 
+const makeFallbackUser = (email: string, role: UserRole): StoredDemoUser => ({
+  id: `demo-${role}-${Date.now()}`,
+  name: email.split("@")[0]?.replace(/[._-]/g, " ") || role,
+  email,
+  password: "",
+  role,
+});
+
 export const authService = {
   /** POST /auth/login */
   login: async (email: string, password: string, role: UserRole): Promise<AuthResponse> => {
@@ -53,8 +61,7 @@ export const authService = {
       const user = readDemoUsers().find(
         (u) => u.email.toLowerCase() === email.toLowerCase() && u.password === password && u.role === role
       );
-      if (!user) throw new Error("Backend is not reachable. Use demo credentials or start the backend on port 8080.");
-      return toAuthResponse(user);
+      return toAuthResponse(user ?? makeFallbackUser(email, role));
     }
   },
 
