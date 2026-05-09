@@ -26,9 +26,9 @@ const Login = () => {
     e.preventDefault();
     setSubmitting(true);
     try {
-      await login(email, password, role);
-      toast.success(`Welcome back, ${roleMeta[role].label}!`);
-      navigate(role === "admin" ? "/admin" : role === "doctor" ? "/doctor-dashboard" : "/patient-dashboard");
+      const user = await login(email, password, role);
+      toast.success(`Welcome back, ${roleMeta[user.role].label}!`);
+      navigate(user.role === "admin" ? "/admin" : user.role === "doctor" ? "/doctor-dashboard" : "/patient-dashboard");
     } catch (err: any) {
       toast.error(err?.message || "Login failed. Check your credentials and that the backend is running.");
     } finally {
