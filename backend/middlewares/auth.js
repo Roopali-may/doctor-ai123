@@ -2,6 +2,12 @@ const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
 const User = require("../models/User");
 
+const makeHttpError = (message, statusCode) => {
+  const error = new Error(message);
+  error.statusCode = statusCode;
+  return error;
+};
+
 const protect = asyncHandler(async (req, res, next) => {
   let token;
   const header = req.headers.authorization;
@@ -9,21 +15,18 @@ const protect = asyncHandler(async (req, res, next) => {
   if (!token && req.cookies?.token) token = req.cookies.token;
 
   if (!token) {
-    res.status(401);
-    throw new Error("Not authorized, no token");
+    throw makeHttpError("Not authorized, no token", 401);
   }
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = await User.findById(decoded.id).select("-password");
     if (!req.user) {
-      res.status(401);
-      throw new Error("User no longer exists");
+      throw makeHttpError("User no longer exists", 401);
     }
     next();
   } catch (e) {
-    res.status(401);
-    throw new Error("Not authorized, token invalid");
+    throw makeHttpError("Not authorized, token invalid", 401);
   }
 });
 
