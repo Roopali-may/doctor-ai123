@@ -8,7 +8,8 @@ import axios, { AxiosInstance, AxiosError } from "axios";
  *
  * Place this in a local `.env.local` file at the project root when running on
  * your machine alongside your Express + MongoDB server. The Lovable cloud
- * preview cannot reach `localhost:8080`.
+ * preview cannot reach `localhost:8080`; authService will use a demo fallback
+ * there so the login screen stays usable.
  */
 const BASE_URL =
   (import.meta.env.VITE_BASEURL as string | undefined) ??
@@ -39,7 +40,10 @@ api.interceptors.response.use(
       error.response?.data?.message ??
       error.message ??
       "Network error. Is your backend running on " + BASE_URL + "?";
-    return Promise.reject(new Error(message));
+    const normalized = new Error(message) as Error & { status?: number; isNetworkError?: boolean };
+    normalized.status = error.response?.status;
+    normalized.isNetworkError = !error.response;
+    return Promise.reject(normalized);
   }
 );
 
