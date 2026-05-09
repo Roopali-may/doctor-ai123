@@ -42,7 +42,14 @@ const App = () => (
             <TooltipProvider>
               <Toaster />
               <Sonner />
-              <BrowserRouter>
+
+              {/* ✅ Updated Router (warning fix) */}
+              <BrowserRouter
+                future={{
+                  v7_startTransition: true,
+                  v7_relativeSplatPath: true,
+                }}
+              >
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/doctors" element={<DoctorsPage />} />
@@ -68,6 +75,7 @@ const App = () => (
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </BrowserRouter>
+
             </TooltipProvider>
           </HealthProvider>
         </PatientProvider>
