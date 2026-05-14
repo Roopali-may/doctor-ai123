@@ -6,7 +6,6 @@ import DoctorCard from "@/components/DoctorCard";
 import MainLayout from "@/layouts/MainLayout";
 import { doctors } from "@/data/doctors";
 import { services } from "@/data/services";
-import heroBanner from "@/assets/hero-banner.jpg";
 import heroHospital from "@/assets/hero-hospital.png";
 import heroTeam from "@/assets/hero-team.png";
 import heroCare from "@/assets/hero-care.png";
@@ -30,8 +29,7 @@ import {
   Globe,
 } from "lucide-react";
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { useEffect } from "react";
+import { motion } from "framer-motion";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -44,12 +42,7 @@ const fadeUp = {
 
 const Index = () => {
   const [search, setSearch] = useState("");
-  const [slide, setSlide] = useState(0);
-  const slides = [heroHospital, heroTeam, heroCare];
-  useEffect(() => {
-    const id = setInterval(() => setSlide((s) => (s + 1) % slides.length), 3500);
-    return () => clearInterval(id);
-  }, [slides.length]);
+  const heroBackgrounds = [heroHospital, heroTeam, heroCare];
   const topDoctors = doctors.filter((d) => d.available).slice(0, 4);
 
   const homeServices = services.slice(0, 8);
@@ -79,10 +72,18 @@ const Index = () => {
   return (
     <MainLayout>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-accent">
-        <div className="absolute inset-0 opacity-10">
-          <img src={heroBanner} alt="" className="h-full w-full object-cover" />
+      <section className="relative overflow-hidden bg-background">
+        <div className="absolute inset-0 grid grid-cols-1 opacity-30 sm:grid-cols-3">
+          {heroBackgrounds.map((image, index) => (
+            <img
+              key={image}
+              src={image}
+              alt=""
+              className={`h-full min-h-[520px] w-full object-cover ${index > 0 ? "hidden sm:block" : ""}`}
+            />
+          ))}
         </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/75 to-background" />
         <div className="container relative mx-auto px-4 py-20 md:py-28">
           <motion.div initial="hidden" animate="visible" className="mx-auto max-w-2xl text-center">
             <motion.h1 variants={fadeUp} custom={0} className="font-heading text-4xl font-extrabold leading-tight text-foreground md:text-5xl lg:text-6xl">
@@ -106,38 +107,6 @@ const Index = () => {
               <span className="flex items-center gap-1"><ShieldCheck className="h-4 w-4 text-success" /> Verified Doctors</span>
             </motion.div>
           </motion.div>
-        </div>
-      </section>
-
-      {/* Auto Carousel */}
-      <section className="bg-background py-12">
-        <div className="container mx-auto px-4">
-          <div className="relative mx-auto h-[280px] w-full overflow-hidden rounded-2xl border bg-card shadow-card sm:h-[380px] md:h-[460px]">
-            <AnimatePresence mode="wait">
-              <motion.img
-                key={slide}
-                src={slides[slide]}
-                alt={`Highlight ${slide + 1}`}
-                initial={{ opacity: 0, x: 60 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -60 }}
-                transition={{ duration: 0.7, ease: "easeInOut" }}
-                className="absolute inset-0 h-full w-full object-cover"
-              />
-            </AnimatePresence>
-            <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
-              {slides.map((_, i) => (
-                <button
-                  key={i}
-                  aria-label={`Go to slide ${i + 1}`}
-                  onClick={() => setSlide(i)}
-                  className={`h-2 rounded-full transition-all ${
-                    i === slide ? "w-8 bg-primary" : "w-2 bg-white/70"
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
         </div>
       </section>
 
