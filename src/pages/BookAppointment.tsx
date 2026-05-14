@@ -4,7 +4,6 @@ import MainLayout from "@/layouts/MainLayout";
 import { doctors } from "@/data/doctors";
 import { useAppointments } from "@/context/AppointmentContext";
 import { useAuth } from "@/context/AuthContext";
-import { paymentService } from "@/services/paymentService";
 import PaymentForm from "@/components/PaymentForm";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -49,24 +48,18 @@ const BookAppointment = () => {
     setStep("payment");
   };
 
-  const handlePaymentComplete = async (method: "card" | "upi" | "wallet" | "netbanking") => {
-    const savedAppointment = await addAppointment({
-        doctorId: doctor.id,
-        doctorName: doctor.name,
-        doctorSpecialization: doctor.specialization,
-        doctorImage: doctor.image,
-        patientName: name,
-        patientEmail: email,
-        patientPhone: phone,
-        date: selectedDate,
-        time: selectedSlot,
-        notes,
-      });
-    await paymentService.pay({
-      appointmentId: savedAppointment.id,
+  const handlePaymentComplete = () => {
+    addAppointment({
       doctorId: doctor.id,
-      amount: Number((doctor.fee + 50 + doctor.fee * 0.18).toFixed(2)),
-      method,
+      doctorName: doctor.name,
+      doctorSpecialization: doctor.specialization,
+      doctorImage: doctor.image,
+      patientName: name,
+      patientEmail: email,
+      patientPhone: phone,
+      date: selectedDate,
+      time: selectedSlot,
+      notes,
     });
     setStep("success");
     toast.success("Payment successful! Appointment booked!");
@@ -182,7 +175,6 @@ const BookAppointment = () => {
               <PaymentForm
                 amount={doctor.fee}
                 doctorName={doctor.name}
-                doctorId={doctor.id}
                 onPaymentComplete={handlePaymentComplete}
                 onBack={() => setStep("details")}
               />
