@@ -7,6 +7,9 @@ import MainLayout from "@/layouts/MainLayout";
 import { doctors } from "@/data/doctors";
 import { services } from "@/data/services";
 import heroBanner from "@/assets/hero-banner.jpg";
+import heroHospital from "@/assets/hero-hospital.png";
+import heroTeam from "@/assets/hero-team.png";
+import heroCare from "@/assets/hero-care.png";
 import {
   Search,
   ShieldCheck,
