@@ -8,7 +8,8 @@ import { toast } from "sonner";
 interface PaymentFormProps {
   amount: number;
   doctorName: string;
-  onPaymentComplete: () => void;
+  doctorId?: string;
+  onPaymentComplete: (method: "card" | "upi" | "wallet" | "netbanking") => Promise<void> | void;
   onBack: () => void;
 }
 
@@ -42,9 +43,14 @@ const PaymentForm = ({ amount, doctorName, onPaymentComplete, onBack }: PaymentF
       return;
     }
     setProcessing(true);
-    setTimeout(() => {
-      setProcessing(false);
-      onPaymentComplete();
+    setTimeout(async () => {
+      try {
+        await onPaymentComplete(method);
+      } catch (err: any) {
+        toast.error(err?.message || "Payment could not be saved. Make sure the backend is running.");
+      } finally {
+        setProcessing(false);
+      }
     }, 2000);
   };
 
