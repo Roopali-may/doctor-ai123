@@ -82,14 +82,10 @@ export const authService = {
       if (data.token) localStorage.setItem("auth_token", data.token);
       return data;
     } catch (error) {
-      if (!isNetworkError(error)) throw error;
-      const users = readDemoUsers();
-      if (users.some((u) => u.email.toLowerCase() === email.toLowerCase())) {
-        throw new Error("Email already registered");
+      if (isNetworkError(error)) {
+        throw new Error("Backend is not reachable, so this account was not saved to MongoDB. Start the backend on port 8080 and try again.");
       }
-      const user: StoredDemoUser = { id: `demo-${Date.now()}`, name, email, password, role };
-      localStorage.setItem(DEMO_USERS_KEY, JSON.stringify([...users.filter((u) => !demoUsers.includes(u)), user]));
-      return toAuthResponse(user);
+      throw error;
     }
   },
 
