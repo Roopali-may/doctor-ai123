@@ -27,6 +27,7 @@ import ServiceDetail from "./pages/ServiceDetail";
 import HealthTracker from "./pages/HealthTracker";
 import Prescriptions from "./pages/Prescriptions";
 import OnlineConsultation from "./pages/OnlineConsultation";
+import Gallery from "./pages/Gallery";
 import DoctorDashboard from "./pages/DoctorDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
