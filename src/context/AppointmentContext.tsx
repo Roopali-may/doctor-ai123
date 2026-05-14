@@ -1,4 +1,6 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import { appointmentService } from "@/services/appointmentService";
+import { useAuth } from "@/context/AuthContext";
 
 export type AppointmentStatus = "pending" | "approved" | "rejected" | "completed";
 
@@ -19,14 +21,15 @@ export interface Appointment {
 
 interface AppointmentContextType {
   appointments: Appointment[];
-  addAppointment: (apt: Omit<Appointment, "id" | "status">) => void;
-  updateStatus: (id: string, status: AppointmentStatus) => void;
-  cancelAppointment: (id: string) => void;
+  addAppointment: (apt: Omit<Appointment, "id" | "status">) => Promise<Appointment>;
+  updateStatus: (id: string, status: AppointmentStatus) => Promise<void>;
+  cancelAppointment: (id: string) => Promise<void>;
 }
 
 const AppointmentContext = createContext<AppointmentContextType | undefined>(undefined);
 
 export const AppointmentProvider = ({ children }: { children: ReactNode }) => {
+  const { isAuthenticated } = useAuth();
   const [appointments, setAppointments] = useState<Appointment[]>([
     {
       id: "apt-1",
@@ -56,20 +59,26 @@ export const AppointmentProvider = ({ children }: { children: ReactNode }) => {
     },
   ]);
 
-  const addAppointment = (apt: Omit<Appointment, "id" | "status">) => {
-    setAppointments((prev) => [
-      ...prev,
-      { ...apt, id: `apt-${Date.now()}`, status: "pending" },
-    ]);
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    appointmentService.getMine().then(setAppointments).catch(() => undefined);
+  }, [isAuthenticated]);
+
+  const addAppointment = async (apt: Omit<Appointment, "id" | "status">) => {
+    const saved = await appointmentService.book(apt);
+    setAppointments((prev) => [saved, ...prev]);
+    return saved;
   };
 
-  const updateStatus = (id: string, status: AppointmentStatus) => {
+  const updateStatus = async (id: string, status: AppointmentStatus) => {
+    await appointmentService.updateStatus(id, status);
     setAppointments((prev) =>
       prev.map((a) => (a.id === id ? { ...a, status } : a))
     );
   };
 
-  const cancelAppointment = (id: string) => {
+  const cancelAppointment = async (id: string) => {
+    await appointmentService.cancel(id);
     setAppointments((prev) => prev.filter((a) => a.id !== id));
   };
 
