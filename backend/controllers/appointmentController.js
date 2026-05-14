@@ -5,7 +5,7 @@ exports.myAppointments = asyncHandler(async (req, res) => {
   const list = await Appointment.find({ patient: req.user._id })
     .populate("doctor")
     .sort("-createdAt");
-  res.json(list);
+  res.json(list.map(formatAppointment));
 });
 
 exports.allAppointments = asyncHandler(async (req, res) => {
@@ -13,12 +13,12 @@ exports.allAppointments = asyncHandler(async (req, res) => {
     .populate("doctor")
     .populate("patient", "name email phone")
     .sort("-createdAt");
-  res.json(list);
+  res.json(list.map(formatAppointment));
 });
 
 exports.book = asyncHandler(async (req, res) => {
   const appt = await Appointment.create({ ...req.body, patient: req.user._id });
-  res.status(201).json(appt);
+  res.status(201).json(formatAppointment(appt));
 });
 
 exports.updateStatus = asyncHandler(async (req, res) => {
