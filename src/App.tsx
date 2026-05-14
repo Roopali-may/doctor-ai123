@@ -27,6 +27,7 @@ import ServiceDetail from "./pages/ServiceDetail";
 import HealthTracker from "./pages/HealthTracker";
 import Prescriptions from "./pages/Prescriptions";
 import OnlineConsultation from "./pages/OnlineConsultation";
+import Gallery from "./pages/Gallery";
 import DoctorDashboard from "./pages/DoctorDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
@@ -69,6 +70,7 @@ const App = () => (
                   <Route path="/services/:slug" element={<ServiceDetail />} />
                   <Route path="/health-tracker" element={<HealthTracker />} />
                   <Route path="/online-consultation" element={<OnlineConsultation />} />
+                  <Route path="/gallery" element={<Gallery />} />
                   <Route path="/prescriptions" element={<Prescriptions />} />
                   <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
                   <Route path="/admin" element={<AdminDashboard />} />
