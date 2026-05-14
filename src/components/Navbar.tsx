@@ -31,7 +31,7 @@ const Navbar = () => {
   const navLinks = [
     { to: "/", label: "Home" },
     { to: "/doctors", label: "Book Appointment" },
-    { to: "/online-consultation", label: "Online Consult" },
+    { to: "/gallery", label: "Gallery" },
     { to: "/health-tips", label: "Health Tips" },
     { to: "/contact", label: "Contact" },
   ];
