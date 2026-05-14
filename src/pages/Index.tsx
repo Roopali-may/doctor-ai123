@@ -44,6 +44,12 @@ const fadeUp = {
 
 const Index = () => {
   const [search, setSearch] = useState("");
+  const [slide, setSlide] = useState(0);
+  const slides = [heroHospital, heroTeam, heroCare];
+  useEffect(() => {
+    const id = setInterval(() => setSlide((s) => (s + 1) % slides.length), 3500);
+    return () => clearInterval(id);
+  }, [slides.length]);
   const topDoctors = doctors.filter((d) => d.available).slice(0, 4);
 
   const homeServices = services.slice(0, 8);
